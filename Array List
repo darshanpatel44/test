@@ -1,0 +1,118 @@
+class ArrayList<D> implements List<D>
+{
+    Integer buffer;
+    Integer size;
+    Object arr[];
+    ArrayList()
+    {
+        buffer=5;
+        size=0;
+        arr=new Object[buffer];
+    }
+    public void add(D i)
+    {
+        arr[size]=i;
+        ++size;
+        if(size==buffer)
+        {
+            Object arr2[]=new Object[buffer*2];
+            buffer*=2;
+            for(Integer j=0;j<size;++j)
+                arr2[j]=arr[j]; 
+            arr=arr2;
+        }
+    }
+    public void add(D i,Integer p)
+    {
+        
+        try
+        {
+            if(p>size)
+            {
+                BoundsException ob=new BoundsException();
+                throw ob;
+            }
+        }
+        catch(BoundsException x)
+        {
+            x.printError();
+            return;
+        }
+        ++size;
+        if(size==buffer)
+        {
+            Object arr2[]=new Object[buffer*2];
+            buffer*=2;
+            for(Integer j=0;j<size;++j)
+                arr2[j]=arr[j]; 
+            arr=arr2;
+        }
+        for(Integer j=size-1;j>=p;--j)
+            arr[j+1]=arr[j];
+        arr[p]=i;
+    }
+    public D getElementAt(Integer index)
+    {
+        try
+        {
+            if(index>size)
+            {
+                BoundsException ab=new BoundsException();
+                throw ab;
+            }
+        }
+        catch(BoundsException x)
+        {
+            x.printError();
+            index=-1;
+            return (D)index;
+        }
+    
+        if(index>-1 && index<size)
+        return (D)arr[index];
+        else
+        {
+            index=-1;
+            return (D)index;
+        }
+    }
+    public boolean remove(Integer m)
+    {
+        for(Integer i=0;i<size;++i)
+        {
+            if(arr[i]==m)
+            {
+                for(Integer j=i;j<size;++j)
+                arr[j]=arr[j+1];
+                --size;
+                return true;
+            }
+        }
+        return false;
+    }
+    public Integer search(D m)
+    {
+        for(Integer i=0;i<size;++i)
+        {
+            if(arr[i]==m)
+            return i;
+        }
+        return -1;
+    }
+    public boolean isEmpty()
+    {
+        if(size==0)
+        return true;
+        return false;
+    }
+    public Integer getSize()
+    {
+        return size;
+    }
+    public void traverse()
+    {
+        for(Integer i=0;i<size;++i)
+        System.out.print(arr[i]+" ");
+    }
+    
+}
